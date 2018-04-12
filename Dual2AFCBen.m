@@ -10,8 +10,6 @@ TaskParameters = BpodSystem.ProtocolSettings;
 if isempty(fieldnames(TaskParameters))
     %% General
     TaskParameters.GUI.ITI = 0; % (s)
-    TaskParameters.GUI.RewardAmountL = 20;  
-    TaskParameters.GUI.RewardAmountR = 20; 
     TaskParameters.GUI.ChoiceDeadLine = 5;
     TaskParameters.GUI.TimeOutIncorrectChoice = 0; % (s)
     TaskParameters.GUI.TimeOutBrokeFixation = 0; % (s)
@@ -24,12 +22,14 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUI.CatchError = false;
     TaskParameters.GUIMeta.CatchError.Style = 'checkbox';
     TaskParameters.GUI.Ports_LMR = 123;
-    TaskParameters.GUIPanels.General = {'ITI','RewardAmountL','RewardAmountR','ChoiceDeadLine','TimeOutIncorrectChoice','TimeOutBrokeFixation','TimeOutEarlyWithdrawal','TimeOutSkippedFeedback','PercentAuditory','StartEasyTrials','Percent50Fifty','PercentCatch','CatchError','Ports_LMR'};    
+    TaskParameters.GUIPanels.General = {'ITI','ChoiceDeadLine','TimeOutIncorrectChoice','TimeOutBrokeFixation','TimeOutEarlyWithdrawal','TimeOutSkippedFeedback','PercentAuditory','StartEasyTrials','Percent50Fifty','PercentCatch','CatchError','Ports_LMR'};    
     %% BiasControl
     TaskParameters.GUI.TrialSelection = 3;
+    TaskParameters.GUI.RewardAmountL = 20;  
+    TaskParameters.GUI.RewardAmountR = 20; 
     TaskParameters.GUIMeta.TrialSelection.Style = 'popupmenu';
     TaskParameters.GUIMeta.TrialSelection.String = {'Flat','Manual','BiasCorrecting','Competitive'};
-    TaskParameters.GUIPanels.BiasControl = {'TrialSelection'};
+    TaskParameters.GUIPanels.BiasControl = {'TrialSelection','RewardAmountL','RewardAmountR'};
     %% StimDelay
     TaskParameters.GUI.StimDelayAutoincrement = 1;
     TaskParameters.GUIMeta.StimDelayAutoincrement.Style = 'checkbox';
