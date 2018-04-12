@@ -10,7 +10,8 @@ TaskParameters = BpodSystem.ProtocolSettings;
 if isempty(fieldnames(TaskParameters))
     %% General
     TaskParameters.GUI.ITI = 0; % (s)
-    TaskParameters.GUI.RewardAmount = 25;    
+    TaskParameters.GUI.RewardAmountL = 20;  
+    TaskParameters.GUI.RewardAmountR = 20; 
     TaskParameters.GUI.ChoiceDeadLine = 5;
     TaskParameters.GUI.TimeOutIncorrectChoice = 0; % (s)
     TaskParameters.GUI.TimeOutBrokeFixation = 0; % (s)
@@ -23,7 +24,7 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUI.CatchError = false;
     TaskParameters.GUIMeta.CatchError.Style = 'checkbox';
     TaskParameters.GUI.Ports_LMR = 123;
-    TaskParameters.GUIPanels.General = {'ITI','RewardAmount','ChoiceDeadLine','TimeOutIncorrectChoice','TimeOutBrokeFixation','TimeOutEarlyWithdrawal','TimeOutSkippedFeedback','PercentAuditory','StartEasyTrials','Percent50Fifty','PercentCatch','CatchError','Ports_LMR'};    
+    TaskParameters.GUIPanels.General = {'ITI','RewardAmountL','RewardAmountR','ChoiceDeadLine','TimeOutIncorrectChoice','TimeOutBrokeFixation','TimeOutEarlyWithdrawal','TimeOutSkippedFeedback','PercentAuditory','StartEasyTrials','Percent50Fifty','PercentCatch','CatchError','Ports_LMR'};    
     %% BiasControl
     TaskParameters.GUI.TrialSelection = 3;
     TaskParameters.GUIMeta.TrialSelection.Style = 'popupmenu';
@@ -136,6 +137,7 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.Figures.ParameterGUI.Position =  [9, 454, 1474, 562];
     
 end
+
 BpodParameterGUI('init', TaskParameters);
 
 %% Initializing data (trial type) vectors
@@ -155,7 +157,8 @@ BpodSystem.Data.Custom.OdorID = 2 - double(BpodSystem.Data.Custom.OdorFracA > 50
 BpodSystem.Data.Custom.OdorPair = ones(1,2)*2;
 BpodSystem.Data.Custom.ST = [];
 BpodSystem.Data.Custom.Rewarded = false(0);
-BpodSystem.Data.Custom.RewardMagnitude = TaskParameters.GUI.RewardAmount*[TaskParameters.GUI.BlockTable.RewL(1), TaskParameters.GUI.BlockTable.RewR(1)];
+BpodSystem.Data.Custom.RewardMagnitude = [TaskParameters.GUI.RewardAmountL * TaskParameters.GUI.BlockTable.RewL(1),...
+    TaskParameters.GUI.RewardAmountR * TaskParameters.GUI.BlockTable.RewR(1)];
 BpodSystem.Data.Custom.TrialNumber = [];
 BpodSystem.Data.Custom.AuditoryTrial = rand(1,2) < TaskParameters.GUI.PercentAuditory;
 BpodSystem.Data.Custom.OlfactometerStartup = false;
