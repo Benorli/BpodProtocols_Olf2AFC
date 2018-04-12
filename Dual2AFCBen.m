@@ -1,4 +1,4 @@
-function Dual2AFC
+function Dual2AFCBen
 % 2-AFC olfactory and auditory discrimination task implented for Bpod fork https://github.com/KepecsLab/bpod
 % This project is available on https://github.com/KepecsLab/BpodProtocols_Olf2AFC/
 
