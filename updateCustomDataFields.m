@@ -84,9 +84,13 @@ else % Final block
     BpodSystem.Data.Custom.BlockNumber(iTrial+1) = BpodSystem.Data.Custom.BlockNumber(iTrial);
 end
 
-BpodSystem.Data.Custom.RewardMagnitude(iTrial+1,:) = TaskParameters.GUI.RewardAmount*...
-    [TaskParameters.GUI.BlockTable.RewL(TaskParameters.GUI.BlockTable.BlockNumber==BpodSystem.Data.Custom.BlockNumber(iTrial+1)),...
-    TaskParameters.GUI.BlockTable.RewR(TaskParameters.GUI.BlockTable.BlockNumber==BpodSystem.Data.Custom.BlockNumber(iTrial+1))];
+BpodSystem.Data.Custom.RewardMagnitude(iTrial+1,1) = TaskParameters.GUI.RewardAmountL*...
+    TaskParameters.GUI.BlockTable.RewL(TaskParameters.GUI.BlockTable.BlockNumber ==...
+        BpodSystem.Data.Custom.BlockNumber(iTrial+1));
+
+BpodSystem.Data.Custom.RewardMagnitude(iTrial+1,2) = TaskParameters.GUI.RewardAmountR*...
+    TaskParameters.GUI.BlockTable.RewL(TaskParameters.GUI.BlockTable.BlockNumber ==...
+        BpodSystem.Data.Custom.BlockNumber(iTrial+1));
 
 %% Updating Delays
 %stimulus delay
@@ -213,8 +217,11 @@ if iTrial > numel(BpodSystem.Data.Custom.DV) - 5
             TaskParameters.GUI.LeftBiasAud = 0.5;%auditory not implemented
         case 'BiasCorrecting' % Favors side with fewer rewards. Contrast drawn flat & independently.
             %olfactory
-            ndxRewd = BpodSystem.Data.Custom.Rewarded(1:iTrial) == 1 & ~BpodSystem.Data.Custom.AuditoryTrial(1:iTrial); ndxRewd = ndxRewd(:);
-            oldOdorID = BpodSystem.Data.Custom.OdorID(1:numel(ndxRewd)); oldOdorID = oldOdorID(:);
+            ndxRewd = BpodSystem.Data.Custom.Rewarded(1:iTrial) == 1 &...
+                ~BpodSystem.Data.Custom.AuditoryTrial(1:iTrial);
+            ndxRewd = ndxRewd(:);
+            oldOdorID = BpodSystem.Data.Custom.OdorID(1:numel(ndxRewd));
+            oldOdorID = oldOdorID(:);
             if any(ndxRewd) % To prevent division by zero
                 TaskParameters.GUI.OdorTable.OdorProb(TaskParameters.GUI.OdorTable.OdorFracA<50) = 1-sum(oldOdorID==2 & ndxRewd)/sum(ndxRewd);
                 TaskParameters.GUI.OdorTable.OdorProb(TaskParameters.GUI.OdorTable.OdorFracA>50) = 1-sum(oldOdorID==1 & ndxRewd)/sum(ndxRewd);
@@ -223,9 +230,10 @@ if iTrial > numel(BpodSystem.Data.Custom.DV) - 5
                 TaskParameters.GUI.OdorTable.OdorProb(TaskParameters.GUI.OdorTable.OdorFracA>50) = .5;
             end
             %auditory
-            ndxRewd = BpodSystem.Data.Custom.Rewarded(1:iTrial) == 1 & BpodSystem.Data.Custom.AuditoryTrial(1:iTrial);
+            ndxRewd = BpodSystem.Data.Custom.Rewarded(1:iTrial) == 1 &...
+                BpodSystem.Data.Custom.AuditoryTrial(1:iTrial);
             if sum(ndxRewd)>10
-                TaskParameters.GUI.LeftBiasAud = sum(BpodSystem.Data.Custom.MoreLeftClicks(1:iTrial)==1&ndxRewd)/sum(ndxRewd);
+                TaskParameters.GUI.LeftBiasAud = sum(BpodSystem.Data.Custom.MoreLeftClicks(1:iTrial)==1&ndxRewd) / sum(ndxRewd);
             else
                 TaskParameters.GUI.LeftBiasAud = 0.5;
             end
