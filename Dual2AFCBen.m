@@ -238,7 +238,7 @@ BpodSystem.GUIHandles.OutcomePlot.HandleFix = axes('Position',        [4*.05 + 3
 BpodSystem.GUIHandles.OutcomePlot.HandleST = axes('Position',         [5*.05 + 4*.08   .6  .1  .3], 'Visible', 'off');
 BpodSystem.GUIHandles.OutcomePlot.HandleFeedback = axes('Position',   [6*.05 + 5*.08   .6  .1  .3], 'Visible', 'off');
 BpodSystem.GUIHandles.OutcomePlot.HandleVevaiometric = axes('Position',   [7*.05 + 6*.08   .6  .1  .3], 'Visible', 'off');
-MainPlot(BpodSystem.GUIHandles.OutcomePlot,'init');
+MainPlotBen(BpodSystem.GUIHandles.OutcomePlot,'init');
 BpodSystem.ProtocolFigures.ParameterGUI.Position = TaskParameters.Figures.ParameterGUI.Position;
 %BpodNotebook('init');
 
@@ -265,7 +265,7 @@ while RunSession
     end
     
     updateCustomDataFields(iTrial);
-    MainPlot(BpodSystem.GUIHandles.OutcomePlot,'update',iTrial);
+    MainPlotBen(BpodSystem.GUIHandles.OutcomePlot,'update',iTrial);
     iTrial = iTrial + 1;
 
 end
