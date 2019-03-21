@@ -34,8 +34,8 @@ if softCode > 10 && softCode < 21 %for auditory
     if ~BpodSystem.EmulatorMode
         if softCode == 11 %noise on chan 1
             ProgramPulsePal(BpodSystem.Data.Custom.PulsePalParamFeedback);
-            SendCustomPulseTrain(1,cumsum(randi(9,1,601))/10000,(rand(1,601)-.5)*5); % White(?) noise on channel 1+2
-            SendCustomPulseTrain(2,cumsum(randi(9,1,601))/10000,(rand(1,601)-.5)*5);
+            SendCustomPulseTrain(1,cumsum(randi(9,1,1000))/10000,(rand(1,1000)-.5)*12); % White(?) noise on channel 1+2
+            SendCustomPulseTrain(2,cumsum(randi(9,1,1000))/10000,(rand(1,1000)-.5)*12);
             TriggerPulsePal(1,2);
             ProgramPulsePal(BpodSystem.Data.Custom.PulsePalParamStimulus);
         elseif softCode == 12 %beep on chan 2
