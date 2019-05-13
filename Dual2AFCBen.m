@@ -32,16 +32,12 @@ if isempty(fieldnames(TaskParameters))
     TaskParameters.GUIMeta.TrialSelection.String = {'Flat','Manual','BiasCorrecting','Competitive'};
     TaskParameters.GUIPanels.BiasControl = {'TrialSelection','RewardAmountL','RewardAmountR'};
     %% StimDelay
-    TaskParameters.GUI.StimDelayAutoincrement = 1;
-    TaskParameters.GUIMeta.StimDelayAutoincrement.Style = 'checkbox';
-    TaskParameters.GUIMeta.StimDelayAutoincrement.String = 'Auto';
     TaskParameters.GUI.StimDelayMin = 0;
-    TaskParameters.GUI.StimDelayMax = 0.6;
-    TaskParameters.GUI.StimDelayIncr = 0.01;
-    TaskParameters.GUI.StimDelayDecr = 0.01;
+    TaskParameters.GUI.StimDelayMax = 0.15;
+    TaskParameters.GUI.StimDelayTau = 0.06;
     TaskParameters.GUI.StimDelay = TaskParameters.GUI.StimDelayMin;
     TaskParameters.GUIMeta.StimDelay.Style = 'text';
-    TaskParameters.GUIPanels.StimDelay = {'StimDelayAutoincrement','StimDelayMin','StimDelayMax','StimDelayIncr','StimDelayDecr','StimDelay'};
+    TaskParameters.GUIPanels.StimDelay = {'StimDelayMin','StimDelayMax','StimDelayTau','StimDelay'};
     %% FeedbackDelay
     TaskParameters.GUI.FeedbackDelaySelection = 2;
     TaskParameters.GUIMeta.FeedbackDelaySelection.Style = 'popupmenu';
