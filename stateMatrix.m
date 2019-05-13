@@ -50,29 +50,8 @@ else
 end
 
 % wire output depending on trial difficulty 
-%omega = BpodSystem.Data.Custom.AuditoryOmega(iTrial);
-
-% Define WireOutputAction for ResponseStart correct trials
-% if (omega>0.875 && omega<=1)||(omega>0 && omega<=0.125)
-%     OutputActionsRespondStartCorrect=7; % Set wire outputs 1, 2 and 3 to "high"
-% elseif (omega>0.750 && omega<=0.875)||(omega>0.125 && omega<=0.250)
-%     OutputActionsRespondStartCorrect=6; % Set wire outputs 2 and 3 to "high"
-% elseif (omega>0.625 && omega<=0.750)||(omega>0.250 && omega<=0.375)
-%     OutputActionsRespondStartCorrect=5; % Set wire outputs 1 and 3 to "high"
-% elseif (omega>0.500 && omega<=0.625)||(omega>0.375 && omega<=0.500)
-%     OutputActionsRespondStartCorrect=4; % Set wire output 3 to "high"
-% end
-% 
-% % Define WireOutputAction for ResponseStart incorrect trials
-% if (omega>0.875 && omega<=1)||(omega>0 && omega<=0.125)
-%     OutputActionsRespondStartInCorrect=15; % Set wire outputs 1, 2, 3 and 4 to "high"
-% elseif (omega>0.750 && omega<=0.875)||(omega>0.125 && omega<=0.250)
-%     OutputActionsRespondStartInCorrect=14; % Set wire outputs 2, 3 and 4 to "high"
-% elseif (omega>0.625 && omega<=0.750)||(omega>0.250 && omega<=0.375)
-%     OutputActionsRespondStartInCorrect=13; % Set wire outputs 1, 3 and 4 to "high"
-% elseif (omega>0.500 && omega<=0.625)||(omega>0.375 && omega<=0.500)
-%     OutputActionsRespondStartInCorrect=12; % Set wire outputs 3 and 4 to "high"
-% end
+evidence = abs(BpodSystem.Data.Custom.AuditoryOmega(iTrial)-0.5);
+binned_omega = discretize(evidence, linspace(0,1,20)); 
 
 %% Build state matrix
 sma = NewStateMatrix();
@@ -106,7 +85,7 @@ if BpodSystem.Data.Custom.AuditoryTrial(iTrial)
     sma = AddState(sma, 'Name', 'stimulus_delivery',...
         'Timer', TaskParameters.GUI.AuditoryStimulusTime - TaskParameters.GUI.MinSampleAud,...
         'StateChangeConditions', {CenterPortOut,'wait_Sin','Tup','wait_Sin'},...
-        'OutputActions', {'BNCState',1, 'WireState',1, 'Serial1Code', 255, 'PWM4', 255});
+        'OutputActions', {'BNCState',1, 'WireState',1, 'PWM4', binned_omega});
     sma = AddState(sma, 'Name', 'wait_Sin',...
         'Timer',TaskParameters.GUI.ChoiceDeadLine,...
         'StateChangeConditions', {LeftPortIn,'start_Lin',RightPortIn,'start_Rin','Tup','missed_choice'},...
