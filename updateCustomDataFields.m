@@ -94,21 +94,9 @@ BpodSystem.Data.Custom.RewardMagnitude(iTrial+1,2) = TaskParameters.GUI.RewardAm
 
 %% Updating Delays
 %stimulus delay
-if TaskParameters.GUI.StimDelayAutoincrement
-    if BpodSystem.Data.Custom.FixBroke(iTrial)
-        TaskParameters.GUI.StimDelay = max(TaskParameters.GUI.StimDelayMin,...
-            min(TaskParameters.GUI.StimDelayMax,BpodSystem.Data.Custom.StimDelay(iTrial)-TaskParameters.GUI.StimDelayDecr));
-    else
-        TaskParameters.GUI.StimDelay = min(TaskParameters.GUI.StimDelayMax,...
-            max(TaskParameters.GUI.StimDelayMin,BpodSystem.Data.Custom.StimDelay(iTrial)+TaskParameters.GUI.StimDelayIncr));
-    end
-else
-    if ~BpodSystem.Data.Custom.FixBroke(iTrial)
-        TaskParameters.GUI.StimDelay = random('unif',TaskParameters.GUI.StimDelayMin,TaskParameters.GUI.StimDelayMax);
-    else
-        TaskParameters.GUI.StimDelay = BpodSystem.Data.Custom.StimDelay(iTrial);
-    end
-end
+
+TaskParameters.GUI.StimDelay  = TruncatedExponential(TaskParameters.GUI.StimDelayMin,...
+                TaskParameters.GUI.StimDelayMax, TaskParameters.GUI.StimDelayTau);
 
 %min sampling time auditory
 if TaskParameters.GUI.MinSampleAudAutoincrement 
