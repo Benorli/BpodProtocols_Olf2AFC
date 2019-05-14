@@ -1,4 +1,4 @@
-function MainPlotBen(AxesHandles, Action, varargin)
+function MainPlot(AxesHandles, Action, varargin)
 global nTrialsToShow %this is for convenience
 global BpodSystem
 global TaskParameters
@@ -288,10 +288,10 @@ switch Action
         indxToPlot = mn:iTrial;
         %Cumulative Reward Amount
         R = BpodSystem.Data.Custom.RewardMagnitude;
-        ndxRwd = BpodSystem.Data.Custom.Rewarded;
+        iRwd = BpodSystem.Data.Custom.Rewarded;
         C = zeros(size(R)); 
-        C(BpodSystem.Data.Custom.ChoiceLeft==1&ndxRwd,1) = 1; 
-        C(BpodSystem.Data.Custom.ChoiceLeft==0&ndxRwd,2) = 1;
+        C(BpodSystem.Data.Custom.ChoiceLeft==1&iRwd,1) = 1; 
+        C(BpodSystem.Data.Custom.ChoiceLeft==0&iRwd,2) = 1;
         R = R.*C;
         set(BpodSystem.GUIHandles.OutcomePlot.CumRwd,...
             'position', [iTrial+1 1],...
@@ -504,7 +504,8 @@ if ~iscell(str)
     str = {str};
 end
 for i = 1:length(str)
-    x = pos(1)+1;y = pos(2)+pos(4)-i;
+    x = pos(1)+1;
+    y = pos(2)+pos(4)-i;
     uicontrol(h.Parent,'Units','char','Position',[x,y,length(str{i})+1,1],'string',str{i},'style','text','background',[1,1,1],'FontSize',8);
 end
 set(h,'Units',unit);
