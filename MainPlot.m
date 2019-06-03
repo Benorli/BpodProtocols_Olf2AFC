@@ -117,7 +117,7 @@ switch Action
         BpodSystem.GUIHandles.OutcomePlot.PsycOlfFit = line(AxesHandles.HandlePsycOlf,[0 100],[.5 .5],...
             'color','k',...
             'Visible','off');
-        AxesHandles.HandlePsycOlf.YLim = [-.05 1.05];
+        AxesHandles.HandlePsycOlf.YLim = [0 1.05];
         AxesHandles.HandlePsycOlf.XLim = 100*[-.05 1.05];
         AxesHandles.HandlePsycOlf.XLabel.String = '% odor A'; % FIGURE OUT UNIT
         AxesHandles.HandlePsycOlf.YLabel.String = '% left';
