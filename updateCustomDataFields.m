@@ -86,11 +86,11 @@ end
 
 BpodSystem.Data.Custom.RewardMagnitude(iTrial+1,1) = TaskParameters.GUI.RewardAmountL*...
     TaskParameters.GUI.BlockTable.RewL(TaskParameters.GUI.BlockTable.BlockNumber ==...
-        BpodSystem.Data.Custom.BlockNumber(iTrial+1));
+                                       BpodSystem.Data.Custom.BlockNumber(iTrial+1));
 
 BpodSystem.Data.Custom.RewardMagnitude(iTrial+1,2) = TaskParameters.GUI.RewardAmountR*...
     TaskParameters.GUI.BlockTable.RewL(TaskParameters.GUI.BlockTable.BlockNumber ==...
-        BpodSystem.Data.Custom.BlockNumber(iTrial+1));
+                                       BpodSystem.Data.Custom.BlockNumber(iTrial+1));
 
 %% Updating Delays
 %stimulus delay
