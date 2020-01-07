@@ -503,7 +503,6 @@ switch Action
             %BpodSystem.GUIHandles.OutcomePlot.HistFeed.Normalization = 'probability';
             LeftSkip = sum(~BpodSystem.Data.Custom.Feedback(1:iTrial)&~BpodSystem.Data.Custom.CatchTrial(1:iTrial)&~ndxExclude&BpodSystem.Data.Custom.ChoiceLeft(1:iTrial)==1)/sum(~BpodSystem.Data.Custom.CatchTrial(1:iTrial)&~ndxExclude&BpodSystem.Data.Custom.ChoiceLeft(1:iTrial)==1);
             RightSkip = sum(~BpodSystem.Data.Custom.Feedback(1:iTrial)&~BpodSystem.Data.Custom.CatchTrial(1:iTrial)&~ndxExclude&BpodSystem.Data.Custom.ChoiceLeft(1:iTrial)==0)/sum(~BpodSystem.Data.Custom.CatchTrial(1:iTrial)&~ndxExclude&BpodSystem.Data.Custom.ChoiceLeft(1:iTrial)==0);
-            cornertext(AxesHandles.HandleFeedback,{sprintf('L=%1.2f',LeftSkip),sprintf('R=%1.2f',RightSkip)})
             cornertext(AxesHandles.HandleFeedback,{sprintf('L=%1.3f',LeftSkip),sprintf('R=%1.3f',RightSkip)})
         end
 end
