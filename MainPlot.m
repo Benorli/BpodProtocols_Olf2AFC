@@ -314,6 +314,10 @@ switch Action
         C(BpodSystem.Data.Custom.ChoiceLeft==1&iRwd,1) = 1; 
         C(BpodSystem.Data.Custom.ChoiceLeft==0&iRwd,2) = 1;
         R = R.*C;
+        lTrials = BpodSystem.Data.Custom.MoreLeftClicks(1:iTrial);
+        lTrials = lTrials(~isnan(lTrials));
+        lChoice = BpodSystem.Data.Custom.ChoiceLeft;
+        lChoice = lChoice(~isnan(lChoice));
         set(BpodSystem.GUIHandles.OutcomePlot.CumRwdL,...
             'position', [iTrial+12 1.2],...
             'string', ['Left: ' num2str(sum(R(:,1))/1000) ' mL']);
@@ -333,7 +337,7 @@ switch Action
             'position', [iTrial+12 0.5],...
             'string', ['Chose right: ', num2str(sum(~lChoice))]);
         % Add n choice, l/r
-        clear R C
+        clear R C lTrials lChoice
         %Plot Rewarded
         ndxCor = BpodSystem.Data.Custom.ChoiceCorrect(indxToPlot)==1;
         Xdata = indxToPlot(ndxCor);
