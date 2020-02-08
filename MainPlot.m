@@ -162,8 +162,8 @@ switch Action
             'Visible','off');
         AxesHandles.HandlePsycAud.YLim = [0 1.05];
         AxesHandles.HandlePsycAud.XLim = [-1.05, 1.05];
-        AxesHandles.HandlePsycAud.XLabel.String = 'beta'; % FIGURE OUT UNIT
-        AxesHandles.HandlePsycAud.YLabel.String = '% left';
+        AxesHandles.HandlePsycAud.XLabel.String = '[left]       Evidence       [right]'; % FIGURE OUT UNIT
+        AxesHandles.HandlePsycAud.YLabel.String = '% Right';
         AxesHandles.HandlePsycAud.Title.String = 'Psychometric Aud';
         %% Vevaiometric curve
         hold(AxesHandles.HandleVevaiometric,'on')
@@ -195,7 +195,7 @@ switch Action
             'MarkerEdgeColor','g');
         AxesHandles.HandleVevaiometric.YLim = [0 10];
         AxesHandles.HandleVevaiometric.XLim = [-1.05, 1.05];
-        AxesHandles.HandleVevaiometric.XLabel.String = 'DV';
+        AxesHandles.HandleVevaiometric.XLabel.String = '[left]       Evidence       [right]';
         AxesHandles.HandleVevaiometric.YLabel.String = 'WT (s)';
         AxesHandles.HandleVevaiometric.Title.String = 'Vevaiometric';
         %% Trial rate
