@@ -163,7 +163,7 @@ switch Action
         AxesHandles.HandlePsycAud.YLim = [0 1.05];
         AxesHandles.HandlePsycAud.XLim = [-1.05, 1.05];
         AxesHandles.HandlePsycAud.XLabel.String = '[left]       Evidence       [right]'; % FIGURE OUT UNIT
-        AxesHandles.HandlePsycAud.YLabel.String = '% Right';
+        AxesHandles.HandlePsycAud.YLabel.String = '% Right Choice';
         AxesHandles.HandlePsycAud.Title.String = 'Psychometric Aud';
         %% Vevaiometric curve
         hold(AxesHandles.HandleVevaiometric,'on')
@@ -437,19 +437,22 @@ switch Action
         
         %% Psych Aud
         if TaskParameters.GUI.ShowPsycAud
-            AudDV = BpodSystem.Data.Custom.DV(1:numel(BpodSystem.Data.Custom.ChoiceLeft));
+            AudDV = -BpodSystem.Data.Custom.DV(1:numel(BpodSystem.Data.Custom.ChoiceLeft));
             ndxAud = BpodSystem.Data.Custom.AuditoryTrial(1:numel(BpodSystem.Data.Custom.ChoiceLeft));
             ndxNan = isnan(BpodSystem.Data.Custom.ChoiceLeft);
+            ChoiceRight = BpodSystem.Data.Custom.ChoiceLeft;
+            ChoiceRight(ndxNan) = 1;
+            ChoiceRight = ~ChoiceRight;
             AudBin = 8;
             BinIdx = discretize(AudDV,linspace(-1,1,AudBin+1));
-            PsycY = grpstats(BpodSystem.Data.Custom.ChoiceLeft(ndxAud&~ndxNan),BinIdx(ndxAud&~ndxNan),'mean');
+            PsycY = grpstats(ChoiceRight(ndxAud&~ndxNan),BinIdx(ndxAud&~ndxNan),'mean');
             PsycX = unique(BinIdx(ndxAud&~ndxNan))/AudBin*2-1-1/AudBin;
             BpodSystem.GUIHandles.OutcomePlot.PsycAud.YData = PsycY;
             BpodSystem.GUIHandles.OutcomePlot.PsycAud.XData = PsycX;
             if sum(ndxAud&~ndxNan) > 1
                 BpodSystem.GUIHandles.OutcomePlot.PsycAudFit.XData = linspace(min(AudDV),max(AudDV),100);
                 BpodSystem.GUIHandles.OutcomePlot.PsycAudFit.YData = glmval(glmfit(AudDV(ndxAud&~ndxNan),...
-                    BpodSystem.Data.Custom.ChoiceLeft(ndxAud&~ndxNan)','binomial'),linspace(min(AudDV),max(AudDV),100),'logit');
+                    ChoiceRight(ndxAud&~ndxNan)','binomial'),linspace(min(AudDV),max(AudDV),100),'logit');
             end
         end
         %% Vevaiometric
@@ -457,7 +460,7 @@ switch Action
             ndxError = BpodSystem.Data.Custom.ChoiceCorrect(1:iTrial) == 0 ; %all (completed) error trials (including catch errors)
             ndxCorrectCatch = BpodSystem.Data.Custom.CatchTrial(1:iTrial) & BpodSystem.Data.Custom.ChoiceCorrect(1:iTrial) == 1; %only correct catch trials
             ndxMinWT = BpodSystem.Data.Custom.FeedbackTime > TaskParameters.GUI.VevaiometricMinWT;
-            DV = BpodSystem.Data.Custom.DV(1:iTrial);
+            DV = -BpodSystem.Data.Custom.DV(1:iTrial);
             DVNBin = TaskParameters.GUI.VevaiometricNBin;
             BinIdx = discretize(DV,linspace(-1,1,DVNBin+1));
             WTerr = grpstats(BpodSystem.Data.Custom.FeedbackTime(ndxError&ndxMinWT),BinIdx(ndxError&ndxMinWT),'mean')';
